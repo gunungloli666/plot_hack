@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package tuningpid;
+package com.fjr.test;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -72,7 +72,7 @@ public class AnimasiMatrix extends JPanel implements  Runnable{
     }
     
     public static void main(String[] args){
-       AppFrame frame = new AppFrame(new AnimasiMatrix(), "Matriks Reloaded");
+      // AppFrame frame = new AppFrame(new AnimasiMatrix(), "Matriks Reloaded");
     }
 
     @Override
