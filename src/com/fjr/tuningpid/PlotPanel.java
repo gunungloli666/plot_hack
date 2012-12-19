@@ -16,11 +16,9 @@
  */
 package com.fjr.tuningpid;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class PlotPanel extends JPanel implements Runnable {
@@ -31,14 +29,16 @@ public class PlotPanel extends JPanel implements Runnable {
     ArrayList<Integer> list = new ArrayList<Integer>();
     ArrayList<Integer> list1 = new ArrayList<Integer>();
     int horplot = hor + mainX;
+    int verplot = mainY + ver;
     int a, b;
-    double buffer[] = new double[8];
+    double buffer[] = new double[10];
+    int[] bufferValue = new int [hor];
     private ControlPanel controlPanel;
     Thread mainThread;
     private boolean pauseThread = false;
+    int midleVer = (int)(mainY + ver/2);
 
     public PlotPanel() {
-        this.setBackground(Color.gray);
         for (int i = 50; i < horplot; i += 70) {
             list.add(i);
             list1.add(i);
@@ -50,6 +50,7 @@ public class PlotPanel extends JPanel implements Runnable {
     public void pauseThread() {
         pauseThread = true;
     }
+    
 
     public void resumeThread() {
         pauseThread = false;
@@ -63,10 +64,21 @@ public class PlotPanel extends JPanel implements Runnable {
         this.drawVerticalLine(g);
         this.drawAxisValue(g);
         this.drawSineWave(g);
+        this.drawHorizontalAxis(g);
+    }
+    
+    
+    public void drawHorizontalAxis(Graphics g){
+        g.setColor(Color.red);
+        g.drawLine(mainX,midleVer, horplot,midleVer);
     }
 
     public void drawSineWave(Graphics g) {
+        a = 0; b = ver;
+        int m ;
         for (int i = a; i < b; i++) {
+            m = (int)(midleVer - Math.sin(Math.toRadians(i))* (ver/2));
+            g.fillOval(mainX+ i, m, 4,3);
         }
     }
 
