@@ -49,7 +49,8 @@ public class AppFrame extends JFrame {
 
             @Override
             public void run() {
-                AppFrame frame = new AppFrame("PID test");
+     
+                AppFrame frame = new AppFrame("y=A*sin(a*x)");
             }
         });
     }

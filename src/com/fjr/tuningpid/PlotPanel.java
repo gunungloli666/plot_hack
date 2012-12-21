@@ -32,17 +32,22 @@ public class PlotPanel extends JPanel implements Runnable {
     int verplot = mainY + ver;
     int a, b;
     double buffer[] = new double[10];
-    int[] bufferValue = new int [hor];
+    int[] bufferValue = new int[hor];
     private ControlPanel controlPanel;
     Thread mainThread;
     private boolean pauseThread = false;
-    int midleVer = (int)(mainY + ver/2);
+    int midleVer = (int) (mainY + ver / 2); //pertengahan bidang plot
+    int frekuensi;
+    int amplitudo;
 
     public PlotPanel() {
         for (int i = 50; i < horplot; i += 70) {
             list.add(i);
             list1.add(i);
         }
+        a = 0;
+        frekuensi = 1;
+        amplitudo = 1;
         mainThread = new Thread(this);
         mainThread.start();
     }
@@ -50,7 +55,6 @@ public class PlotPanel extends JPanel implements Runnable {
     public void pauseThread() {
         pauseThread = true;
     }
-    
 
     public void resumeThread() {
         pauseThread = false;
@@ -66,20 +70,29 @@ public class PlotPanel extends JPanel implements Runnable {
         this.drawSineWave(g);
         this.drawHorizontalAxis(g);
     }
-    
-    
-    public void drawHorizontalAxis(Graphics g){
+
+    public void drawHorizontalAxis(Graphics g) {
         g.setColor(Color.red);
-        g.drawLine(mainX,midleVer, horplot,midleVer);
+        g.drawLine(mainX, midleVer, horplot, midleVer);
     }
 
     public void drawSineWave(Graphics g) {
-        a = 0; b = ver;
-        int m ;
+        b = a + hor;
+        int m;
+        int tempx = 0;
         for (int i = a; i < b; i++) {
-            m = (int)(midleVer - Math.sin(Math.toRadians(i))* (ver/2));
-            g.fillOval(mainX+ i, m, 4,3);
+            m = (int) (midleVer -amplitudo* Math.sin(Math.toRadians(i)*frekuensi) * (ver / 2));
+            g.fillOval(mainX + tempx, m, 4, 3);
+            tempx++;
         }
+    }
+
+    public void setAmplitudo(int a) {
+        this.amplitudo = a;
+    }
+
+    public void setFrekuensi(int a) {
+        this.frekuensi = a;
     }
 
     public void drawAxisValue(Graphics g) {
@@ -97,6 +110,8 @@ public class PlotPanel extends JPanel implements Runnable {
     }
 
     public void movePanel() {
+        this.a++;
+
         for (int i = 0; i < list.size(); i++) {
             int a = list.get(i).intValue();
             a--;
