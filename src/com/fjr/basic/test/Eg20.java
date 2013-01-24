@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fjr.test;
+package com.fjr.basic.test;
 
 import java.awt.*;
 import java.applet.Applet;

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>
  */
-package com.fjr.tuningpid;
+package com.fjr.basic;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -40,7 +40,8 @@ public class PlotPanel extends JPanel implements Runnable {
     int frekuensi;
     int amplitudo;
 
-    public PlotPanel() {
+    public PlotPanel() 
+    {
         for (int i = 50; i < horplot; i += 70) {
             list.add(i);
             list1.add(i);
@@ -52,16 +53,19 @@ public class PlotPanel extends JPanel implements Runnable {
         mainThread.start();
     }
 
-    public void pauseThread() {
+    public void pauseThread()
+    {
         pauseThread = true;
     }
 
-    public void resumeThread() {
+    public void resumeThread() 
+    {
         pauseThread = false;
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g) 
+    {
         super.paintComponent(g);
         g.drawRect(mainX, mainY, hor, ver);
         g.setColor(Color.BLUE);
@@ -71,45 +75,52 @@ public class PlotPanel extends JPanel implements Runnable {
         this.drawHorizontalAxis(g);
     }
 
-    public void drawHorizontalAxis(Graphics g) {
+    public void drawHorizontalAxis(Graphics g)
+    {
         g.setColor(Color.red);
         g.drawLine(mainX, midleVer, horplot, midleVer);
     }
 
-    public void drawSineWave(Graphics g) {
+    public void drawSineWave(Graphics g) 
+    {
         b = a + hor;
         int m;
         int tempx = 0;
         for (int i = a; i < b; i++) {
-            m = (int) (midleVer -amplitudo* Math.sin(Math.toRadians(i)*frekuensi) * (ver / 2));
+            m = (int) (midleVer - amplitudo * Math.sin(Math.toRadians(i) * frekuensi) * (ver / 2));
             g.fillOval(mainX + tempx, m, 4, 3);
             tempx++;
         }
     }
 
-    public void setAmplitudo(int a) {
+    public void setAmplitudo(int a)
+    {
         this.amplitudo = a;
     }
 
-    public void setFrekuensi(int a) {
+    public void setFrekuensi(int a) 
+    {
         this.frekuensi = a;
     }
 
-    public void drawAxisValue(Graphics g) {
+    public void drawAxisValue(Graphics g) 
+    {
         g.setColor(Color.BLACK);
         for (int i = 0; i < list.size(); i++) {
             g.drawString(list1.get(i).toString(), list.get(i).intValue() - 10, ver + mainY + 15);
         }
     }
 
-    public void drawVerticalLine(Graphics g) {
+    public void drawVerticalLine(Graphics g) 
+    {
         for (int i = 0; i < list.size(); i++) {
             int a = list.get(i).intValue();
             g.drawLine(a, ver + mainY, a, mainY);
         }
     }
 
-    public void movePanel() {
+    public void movePanel()
+    {
         this.a++;
 
         for (int i = 0; i < list.size(); i++) {
@@ -132,7 +143,8 @@ public class PlotPanel extends JPanel implements Runnable {
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         while (true) {
             if (!pauseThread) {
                 this.movePanel();
